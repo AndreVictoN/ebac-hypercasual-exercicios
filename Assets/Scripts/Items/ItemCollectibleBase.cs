@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCollectableBase : MonoBehaviour
+public class ItemCollectibleBase : MonoBehaviour
 {
     public string compareTag = "Player";
 
