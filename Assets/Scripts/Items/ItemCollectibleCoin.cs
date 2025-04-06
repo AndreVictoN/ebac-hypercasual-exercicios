@@ -8,6 +8,6 @@ public class ItemCollectibleCoin : ItemCollectibleBase
     {
         base.OnCollect();
 
-        ItemsManager.Instance.AddCoins();
+        //ItemsManager.Instance.AddCoins();
     }
 }
