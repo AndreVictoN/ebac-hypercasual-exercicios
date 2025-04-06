@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCollectableCoin : ItemCollectableBase
+public class ItemCollectibleCoin : ItemCollectibleBase
 {
     protected override void OnCollect()
     {
