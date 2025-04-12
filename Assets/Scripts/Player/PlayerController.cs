@@ -24,16 +24,21 @@ public class PlayerController : Singleton<PlayerController>
 
     public GameObject endScreen;
 
+    [Header("Animation")]
+    public AnimatorManager animatorManager;
+
+    //Privates
     private Vector3 _pos;
     private bool _canRun = false;
     private Vector3 _startPosition;
     private float _currentSpeed;
+    private float _initialAnimSpeed;
 
     void Start()
     {
         _startPosition = transform.position;
 
-        ResetSpeed();
+        _currentSpeed = speed;
         ResetInvincible();
     }
 
@@ -53,19 +58,34 @@ public class PlayerController : Singleton<PlayerController>
     {
         if((other.transform.CompareTag(enemyTag) && !isInvincible) || other.transform.CompareTag(endLine))
         {
-            EndGame();
+            EndGame(other.transform.tag);
         }
     }
 
-    public void EndGame()
+    public void EndGame(string tag)
     {
         _canRun = false;
         endScreen.SetActive(true);
+
+        if(tag == enemyTag)
+        {
+            animatorManager.Play(AnimatorManager.AnimationType.DEAD);
+            MoveBack();
+        }else if(tag == endLine)
+        {
+            animatorManager.Play(AnimatorManager.AnimationType.IDLE);
+        }
+    }
+
+    private void MoveBack()
+    {
+        transform.DOMoveZ(-1f, .3f).SetRelative();
     }
 
     public void StartToRun()
     {
         _canRun = true;
+        animatorManager.Play(AnimatorManager.AnimationType.RUN);
     }
 
     #region PowerUps
@@ -78,11 +98,14 @@ public class PlayerController : Singleton<PlayerController>
     public void PowerUpSpeed(float amountToSpeed)
     {
         _currentSpeed += amountToSpeed;
+        _initialAnimSpeed = this.gameObject.GetComponentInChildren<Animator>().speed;
+        this.gameObject.GetComponentInChildren<Animator>().speed = 2f;
     }
 
     public void ResetSpeed()
     {
         _currentSpeed = speed;
+        this.gameObject.GetComponentInChildren<Animator>().speed = _initialAnimSpeed;
     }
 
     public void PowerUpFloat(float amountHeight, float duration, Ease ease, float animationDuration)
