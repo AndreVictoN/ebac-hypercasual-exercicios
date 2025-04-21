@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc82eb5c074d254cbc683f4ebefa55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  lerpSpeed: 4
+  speed: 6
+  lerpSpeed: 6
   target: {fileID: 5050427594117126600}
   enemyTag: Enemy
   endLine: EndLine
